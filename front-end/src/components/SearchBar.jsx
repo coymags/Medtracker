@@ -43,12 +43,12 @@ function SearchBar() {
             reponseData.map((data, index) =>{
               return(
                 <div key={index} className="p-2 text-white bg-gray-800 border border-separate border-slate-400">
-                  <h3>{data.pharmacy_name}</h3>
-                  <h3>{data.address}</h3>
-                  <h3>{data.name}</h3>
-                  <h3>{data.mg}</h3>
-                  <h3>{data.price}</h3>
-                  <h3>{data.description}</h3>
+                  <h3>Pharmacy name: {data.pharmacy_name}</h3>
+                  <h3>Pharmacy address: {data.address}</h3>
+                  <h3>Medicine name: {data.name}</h3>
+                  <h3>milligram: {data.mg}</h3>
+                  <h3>Price: {data.price}</h3>
+                  <h3>Description: {data.description}</h3>
                   <button className="border border-white w-[100%]  rounded-2xl bg-emerald-500">Navigation</button>
                 </div>
               )
