@@ -28,7 +28,6 @@ function Login() {
                 //navigate to user profile
                 //console.log('Successfully Login')
                 const userData = localStorage.setItem('user',JSON.stringify(login.data))
-                <App user={userData}/>
                 navigate('/user')
             } 
         } catch (error) {

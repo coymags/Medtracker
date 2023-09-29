@@ -7,37 +7,9 @@ function Navbar() {
 
     const[toggleNav, setToggleNav] = useState(false)
     const navigate = useNavigate()
-    const[showNavbar, setShowNavbar] = useState(false)
-
-    useEffect(()=>{
-        async function checkNavbar(){
-            try{
-                const localData = await localStorage.getItem('user')
-                if(localData){
-                    setShowNavbar(true)
-                }
-            }catch(error){
-                console.error(error)
-            }
-            
-        }
-
-        checkNavbar()
-
-    }, [])
-
     
     function handleToggle() {
         setToggleNav(prev => !prev)
-    }
-
-    function handleOnlogout() {
-        localStorage.removeItem('user')
-        navigate('login')
-    }
-
-    if(!showNavbar){
-        return
     }
 
     return(
@@ -55,10 +27,9 @@ function Navbar() {
                                 <li className='flex item-center justify-center border w-[50%] h-[2rem] bg-gray-900 rounded-2xl hover:text-lg' onClick={() =>{
                                     navigate('/register')
                                 }}>Register</li>
-                                {/*<li className='flex item-center justify-center border w-[50%] h-[2rem] bg-gray-900 rounded-2xl hover:text-lg' onClick={() => {
+                                <li className='flex item-center justify-center border w-[50%] h-[2rem] bg-gray-900 rounded-2xl hover:text-lg' onClick={() => {
                                     navigate('login')
-                                }}>Login</li>*/}
-                                <li className='flex item-center justify-center border w-[50%] h-[2rem] bg-gray-900 rounded-2xl hover:text-lg' onClick={handleOnlogout}>Log-out</li>
+                                }}>Login</li>
                         </ul> 
                     </div>
                 }
