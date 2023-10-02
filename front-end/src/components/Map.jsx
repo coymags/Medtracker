@@ -5,6 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 
 import { Icon, divIcon, point } from "leaflet";
+{/*
 
 // create custom icon
 const customIcon = new Icon({
@@ -41,7 +42,7 @@ const markers = [
 export default function App() {
   return (
     <MapContainer center={[48.8566, 2.3522]} zoom={13}>
-      {/* OPEN STREEN MAPS TILES */}
+      {/* OPEN STREEN MAPS TILES */} {/*
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -51,25 +52,36 @@ export default function App() {
         chunkedLoading
         iconCreateFunction={createClusterCustomIcon}
       >
-        {/* Mapping through the markers */}
+        {/* Mapping through the markers */} {/*
         {markers.map((marker) => (
           <Marker key={marker.geocode} position={marker.geocode} icon={customIcon}>
             <Popup>{marker.popUp}</Popup>
           </Marker>
         ))}
 
-        {/* Hard coded markers */}
-        {/* <Marker position={[51.505, -0.09]} icon={customIcon}>
-          <Popup>This is popup 1</Popup>
-        </Marker>
-        <Marker position={[51.504, -0.1]} icon={customIcon}>
-          <Popup>This is popup 2</Popup>
-        </Marker>
-        <Marker position={[51.5, -0.09]} icon={customIcon}>
-          <Popup>This is popup 3</Popup>
-        </Marker>
-       */}
+
       </MarkerClusterGroup>
     </MapContainer>
   );
 }
+
+*/}
+
+function App(){
+
+  function handleMapClick(e) {
+    console.log('here')
+    console.log(e)
+  }
+
+  return(
+    <MapContainer center={[51.505, -0.09]} zoom={13} className="w-full h-[40rem]" onClick={handleMapClick} >
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      />
+    </MapContainer>
+  )
+}
+
+export default App
