@@ -1,10 +1,10 @@
-import Map from "./components/Map";
+import Lmap from "./components/Lmap";
 
 function App() {
 
   return (
     <>
-      <Map />
+      <Lmap />
     </>
   )
 }

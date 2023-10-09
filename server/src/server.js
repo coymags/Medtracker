@@ -45,14 +45,15 @@ app.put("/users/:id", async(req, res) => {
 // Create/Post | Insert user
 app.post("/users", async(req, res) =>{
   try{
-      const {email, pharmacy_name, address, password} = req.body;
+      const {email, pharmacy_name, location, password} = req.body;
       const salt = bcrypt.genSaltSync(8)
       const hashedPassword = bcrypt.hashSync(password, salt)
       const createUser = await pool.query(
-        "INSERT INTO medtracker_user (email, pharmacy_name, address, password) VALUES( $1, $2, $3, $4) RETURNING *",
-        [email, pharmacy_name, address, hashedPassword]
+        "INSERT INTO medtracker_user (email, pharmacy_name, password, latitude, longhitude) VALUES( $1, $2, $3, $4, $5) RETURNING *",
+        [email, pharmacy_name, hashedPassword, location.lat, location.lng]
       );
       res.send(createUser.rows);
+      console.log(req.body)
     } catch (error) {
     console.error(error.message);
   }
