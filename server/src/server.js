@@ -21,8 +21,17 @@ app.get('/', (req, res) => {
 // Read|GET || All users
 app.get('/users', async(req, res) => {
   try{
-    const userList = await pool.query("SELECT * FROM medtracker_user");
+    const userList = await pool.query("SELECT * FROM users");
     res.send(userList.rows);
+  } catch(error){
+    console.error(error.message);
+  }
+});
+// Read|Get || All pharmacies
+app.get('/pharmacies', async(req, res) => {
+  try{
+    const pharmacyList = await pool.query("SELECT * FROM pharmacies");
+    res.send(pharmacyList.rows);
   } catch(error){
     console.error(error.message);
   }
@@ -49,7 +58,7 @@ app.post("/users", async(req, res) =>{
       const salt = bcrypt.genSaltSync(8)
       const hashedPassword = bcrypt.hashSync(password, salt)
       const createUser = await pool.query(
-        "INSERT INTO medtracker_user (email, pharmacy_name, password, latitude, longhitude) VALUES( $1, $2, $3, $4, $5) RETURNING *",
+        "INSERT INTO medtracker_user (email, pharmacy_name, password, latitude, longitude) VALUES( $1, $2, $3, $4, $5) RETURNING *",
         [email, pharmacy_name, hashedPassword, location.lat, location.lng]
       );
       res.send(createUser.rows);
@@ -89,7 +98,7 @@ app.get('/products/search/:medicine', async(req, res) =>{
     console.log(medicine)
     let med = `%${medicine}%`
     console.log(med)
-    const namedProduct = await pool.query('SELECT mu.pharmacy_name, mu.address, m.name, m.mg, m.price, m.description FROM medtracker_user AS mu INNER JOIN medicine AS m ON mu.id = m.user_id WHERE m.name ILIKE $1', [med])
+    const namedProduct = await pool.query('SELECT mu.pharmacy_name, mu.address, mu.latitude, mu.longitude, m.name, m.mg, m.price, m.description FROM medtracker_user AS mu INNER JOIN medicine AS m ON mu.id = m.user_id WHERE m.name ILIKE $1', [med])
     res.send(namedProduct.rows)
   } catch (error) {
     console.error(error.message)
@@ -141,6 +150,23 @@ app.post('/login', async(req, res) =>{
     console.log(error)
   }
 })
+
+//User Type Login
+app.post("/usertype", async(req, res) =>{
+  try{
+      const { firstname, lastname, email, password, user_type } = req.body;
+      // const salt = bcrypt.genSaltSync(8)
+      // const hashedPassword = bcrypt.hashSync(password, salt)
+      const createUser = await pool.query(
+        "INSERT INTO user_table ( firstname, lastname, email, password, user_type) VALUES( $1, $2, $3, $4, $5) RETURNING *",
+        [ firstname, lastname, email, password, user_type ]
+      );
+      res.send(createUser.rows);
+      //console.log(req.body)
+    } catch (error) {
+    console.error(error.message);
+  }
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

@@ -7,10 +7,6 @@ function Register() {
 
     const { mapEventLocation, RegisterFormInputField, setRegisterForm } = useStore()
     
-
-    //const[registerInputs, setRegisterInputs] = useState({ email:"", pharmacy_name:"", password:"" })
-
-    
     function handleOnchange(e) {
         const {name, value} = e.target
         setRegisterForm(name, value)
@@ -38,7 +34,6 @@ async function handleOnsubmit(e){
 
 }
 
-
     const navigate = useNavigate()
 
     return(
@@ -60,12 +55,9 @@ async function handleOnsubmit(e){
                         <label htmlFor="" className="text-gray-500">Password</label>
                         <input type="password" defaultValue={RegisterFormInputField.password} name="password" onChange={handleOnchange} className="bg-gray-500 rounded w-[15rem] h-[1.5rem]"/>
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col items-center">
+                        <h1>Click Map and "Mark Location"</h1>
                         <button type="submit" className="bg-emerald-500 w-[7rem] h-[2rem] rounded" onClick={() => navigate("/")}>Map</button>
-                        <label htmlFor="" className="text-gray-500">Latitude</label>
-                        <input type="text" readOnly name="latitude" value={mapEventLocation.lat} className="bg-gray-500 rounded w-[15rem] h-[1.5rem]"/>
-                        <label htmlFor="" className="text-gray-500">Longhitude</label>
-                        <input type="text" readOnly name="longhitude" value={mapEventLocation.lng}  className="bg-gray-500 rounded w-[15rem] h-[1.5rem]"/>
                     </div>
                     
                     <div className="flex items-center">

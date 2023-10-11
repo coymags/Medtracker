@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import axios from "axios"
+import L from 'leaflet'
+import  useStore  from "../data/Store"
+
+
 
 function SearchBar() {
 
+  const navigate = useNavigate()
   const [requestData, setRequestData] = useState({ name:''})
 
   //onChange funtion to get the medicine name input
@@ -15,7 +21,7 @@ function SearchBar() {
   }
 
   //Get the requestData from database using axios.get method
-  const [reponseData, setResponseData] = useState([])
+  const [responseData, setResponseData] = useState([])
 
   async function detectKeydown(e){
     //console.log('clicked:', e.key)
@@ -32,6 +38,24 @@ function SearchBar() {
     }
   }
 
+  //Get user current position
+  const { setUserLocation } = useStore()
+  navigator.geolocation.getCurrentPosition((position) => {
+      setUserLocation(position.coords)
+    }, (error) => {
+      console.log(error)
+  }, {enableHighAccuracy: true})
+
+  //setLocationData to pass into another component
+  const { setLocationData } = useStore()
+
+  function handleClick(index){
+    console.log(index)
+    console.log(responseData[index])
+    setLocationData(responseData[index])
+    navigate('/storemap')
+  }
+  
 
   return (
     <>
@@ -40,16 +64,15 @@ function SearchBar() {
       
         <div className="flex flex-col w-full h-screen gap-2 overflow-auto text-white bg-gray-700">
           {
-            reponseData.map((data, index) =>{
+            responseData.map((data, index) =>{
               return(
                 <div key={index} className="p-2 text-white bg-gray-800 border border-separate border-slate-400">
                   <h3>Pharmacy name: {data.pharmacy_name}</h3>
-                  <h3>Pharmacy address: {data.address}</h3>
                   <h3>Medicine name: {data.name}</h3>
                   <h3>milligram: {data.mg}</h3>
                   <h3>Price: {data.price}</h3>
                   <h3>Description: {data.description}</h3>
-                  <button className="border border-white w-[100%]  rounded-2xl bg-emerald-500">Navigation</button>
+                  <button onClick={() => handleClick(index)} className="border border-white w-[100%]  rounded-2xl bg-emerald-500" >Location</button>
                 </div>
               )
             })

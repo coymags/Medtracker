@@ -70,7 +70,7 @@ function Useraccount() {
       setMedicine(res.data)
     })
     .catch(err => console.log(err))
-  }, [])
+  }, [handleOnsubmit])//dependency -- must render every send data to database
 
   //Checking data length from local storage
   if(data.length === 0){
@@ -91,7 +91,6 @@ function Useraccount() {
               <div key={index}>
                 <div>Email: {d.email}</div>
                 <div>Pharmacy name: {d.pharmacy_name}</div>
-                <div>Address: {d.address}</div>
               </div>
               )
             })
@@ -129,7 +128,7 @@ function Useraccount() {
 
         {/**Medicine table. medicine display div */}
         <div className="flex items-start justify-center w-full h-screen p-3 bg-gray-700">
-          <table className="border-collapse table-auto border-slate-100">
+          <table className="border-collapse table-auto border-slate-100 ">
               <thead>
                   <th className="p-2 text-white border border-slate-300">Name</th>
                   <th className="p-2 text-white border border-slate-300">Price</th>
@@ -141,7 +140,7 @@ function Useraccount() {
               <tbody>
                 {
                   medicine.map((data, index) =>(
-                    <tr key={index}>
+                    <tr key={index} className="text-white">
                         <td>{data.name}</td>
                         <td>{data.mg}</td>
                         <td>{data.price}</td>

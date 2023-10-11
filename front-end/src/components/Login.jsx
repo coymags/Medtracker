@@ -23,13 +23,15 @@ function Login() {
         e.preventDefault()
         try {
             const login = await axios.post("http://localhost:8000/login", loginInputs)
-            //console.log(login.data)
+            console.log(login.data)
             if(login.data){
                 //navigate to user profile
                 //console.log('Successfully Login')
                 const userData = localStorage.setItem('user',JSON.stringify(login.data))
                 navigate('/user')
-            } 
+            }else{
+                alert('Wrong password')
+            }
         } catch (error) {
             console.log('Error: ', error)
         }
