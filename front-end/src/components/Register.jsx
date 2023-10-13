@@ -19,7 +19,7 @@ async function handleOnsubmit(e){
     e.preventDefault()
     try {
         RegisterFormInputField.location = mapEventLocation 
-        const register = await axios.post("http://localhost:8000/users", RegisterFormInputField)
+        const register = await axios.post("http://localhost:8000/api/v1/users", RegisterFormInputField)
         console.log(register.data)
         if(register.data){
             //navigate to user profile

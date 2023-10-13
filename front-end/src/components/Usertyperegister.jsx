@@ -19,7 +19,7 @@ function Usertyperegister() {
     
     try{
       userTypeFormInputField.user_type = "user"
-      const userAcc = await axios.post('http://localhost:8000/usertype', userTypeFormInputField)
+      const userAcc = await axios.post('http://localhost:8000/api/v1/usertype', userTypeFormInputField)
       if (userAcc.data) {
         //navigate to login page
         console.log('Registration Complete: User Type')

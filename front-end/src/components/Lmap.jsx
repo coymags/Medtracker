@@ -14,7 +14,7 @@ import useStore from "../data/Store";
 function Lmap(){
 
   const { mapEventLocation } = useStore()
-  console.log(mapEventLocation)
+  // console.log(mapEventLocation)
   return(
     <MapContainer center={[11.910725492857164, 121.53433844447139]} zoom={5} className="w-full h-[40rem] z-50" >
       <TileLayer

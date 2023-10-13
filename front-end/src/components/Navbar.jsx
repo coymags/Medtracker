@@ -3,13 +3,19 @@ import { useEffect ,useState } from 'react';
 import { useNavigate } from "react-router-dom"
 
 
-function Navbar() {
+function Navbar({ setJwt }) {
 
     const[toggleNav, setToggleNav] = useState(false)
     const navigate = useNavigate()
     
     function handleToggle() {
         setToggleNav(prev => !prev)
+    }
+
+    const handleOnClick = () => {
+        localStorage.removeItem('user')
+        setJwt(null)
+        navigate('/admin')
     }
 
     return(
@@ -27,9 +33,7 @@ function Navbar() {
                                 <li className='flex item-center justify-center border w-[50%] h-[2rem] bg-gray-900 rounded-2xl hover:text-lg' onClick={() =>{
                                     navigate('/register')
                                 }}>Register</li>
-                                <li className='flex item-center justify-center border w-[50%] h-[2rem] bg-gray-900 rounded-2xl hover:text-lg' onClick={() => {
-                                    navigate('login')
-                                }}>Login</li>
+                                <li className='flex item-center justify-center border w-[50%] h-[2rem] bg-gray-900 rounded-2xl hover:text-lg' onClick={handleOnClick}>Logout</li>
                         </ul> 
                     </div>
                 }

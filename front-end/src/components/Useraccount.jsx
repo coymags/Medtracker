@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
-import axios from "axios"
 import { useNavigate } from "react-router-dom"
-
+import axios from "axios"
 
 function Useraccount() {
 
@@ -14,9 +13,11 @@ function Useraccount() {
   useEffect(()=>{
     const localData = JSON.parse(localStorage.getItem('user'))
     setData(localData)
-    setStorId(localData[0].id)
-    console.log(localData[0].id)
+    setStorId(localData.user_id)
+    // console.log(localData[0].user_id)
+    console.log("localStorage", localData)
     console.log(`useEffect is running`)
+    return
   }, [])
 
   //Post request body form to database
@@ -40,8 +41,8 @@ function Useraccount() {
   async function handleOnsubmit(e){
     e.preventDefault()
     try{
-      productInput.user_id = storeId
-      const product = await axios.post('http://localhost:8000/products', productInput)
+      productInput.user_id = 1
+      const product = await axios.post('http://localhost:8000/api/v1/products', productInput)
       console.log(product.data)
       if(product.data){
         console.log('Product added to database!')
@@ -65,7 +66,7 @@ function Useraccount() {
   //Getting specific data from database with a specific id number, with every render dependency
   useEffect(() => {
     //console.log(data[0])
-    axios.get(`http://localhost:8000/products/${storeId}`)
+    axios.get(`http://localhost:8000/api/v1/products/${storeId}`)
     .then(res =>{
       setMedicine(res.data)
     })
@@ -73,13 +74,15 @@ function Useraccount() {
   }, [handleOnsubmit])//dependency -- must render every send data to database
 
   //Checking data length from local storage
-  if(data.length === 0){
+  if (data.length === 0) {
     return(
       <div>
         Loading
       </div>
     )
   }
+
+  // console.log("store_id: ", storeId)
 
   return (
     <>
